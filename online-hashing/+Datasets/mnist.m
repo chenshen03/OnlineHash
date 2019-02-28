@@ -8,7 +8,7 @@ function DS = mnist(opts, normalizeX)
 % in the dataset. Y can be empty for unsupervised datasets.
 % 
 %
-% INPUTS test
+% INPUTS
 %	opts   - (struct)  Parameter structure.
 % 		
 % OUTPUTS: struct DS
