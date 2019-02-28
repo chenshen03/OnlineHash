@@ -52,7 +52,7 @@ if strcmp(method, 'MIHash')
     %     initRS - (int) Initial reservoir size. Must be a positive value. 
     %                    >=500 is recommended. 
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('no_bins'   , 16   , @isscalar);
+    ip.addParamValue('no_bins'   , 64   , @isscalar);
     ip.addParamValue('sigscale'  , 10   , @isscalar);
     ip.addParamValue('stepsize'  , 1    , @isscalar);
     ip.addParamValue('decay'     , 0    , @isscalar);
@@ -147,8 +147,8 @@ elseif strcmp(method, 'SketchHash')
 elseif strcmp(method, 'HCOH')
     % PARAMETERS
     ip.addParamValue('normalize' , true   , @islogical);
-    ip.addParamValue('stepsize'  , 0.1    , @isscalar);
-    ip.addParamValue('hbit'      , 256     , @isscalar);
+    ip.addParamValue('stepsize'  , 0.2    , @isscalar);
+    ip.addParamValue('hbit'      , 64     , @isscalar);
     ip.addParamValue('batchSize' , 1      , @isscalar);
     ip.addParamValue('lambda'    , 0.0    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
@@ -157,10 +157,10 @@ elseif strcmp(method, 'HCOH')
 elseif strcmp(method, 'SDOH')
     % PARAMETERS
     ip.addParamValue('normalize' , false  , @islogical);
-    ip.addParamValue('stepsize'  , 2      , @isscalar);
+    ip.addParamValue('stepsize'  , 0.05      , @isscalar);
     ip.addParamValue('batchSize' , 2000   , @isscalar);
     ip.addParamValue('alpha' , 1e-2       , @isscalar);
-    ip.addParamValue('sigma' , 0.4        , @isscalar);
+    ip.addParamValue('sigma' , 0.5        , @isscalar);
     ip.addParamValue('threshold' , 1e-4   , @isscalar);
     ip.addParamValue('pos' , 1            , @isscalar);
     ip.addParamValue('neg' , 1            , @isscalar);
