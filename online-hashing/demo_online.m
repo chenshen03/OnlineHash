@@ -74,9 +74,9 @@ elseif strcmp(method, 'AdaptHash')
     % 	beta 	 - (float) \lambda as in Alg. 1
     % 	stepsize - (float) The learning rate. 
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('alpha'     , 0.9  , @isscalar);
+    ip.addParamValue('alpha'     , 0.8  , @isscalar);
     ip.addParamValue('beta'      , 1e-2 , @isscalar);
-    ip.addParamValue('stepsize'  , 0.1    , @isscalar);
+    ip.addParamValue('stepsize'  , 0.2    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
     opts.identifier = sprintf('A%gB%gS%g', opts.alpha, opts.beta, opts.stepsize);
@@ -157,11 +157,11 @@ elseif strcmp(method, 'HCOH')
 elseif strcmp(method, 'SDOH')
     % PARAMETERS
     ip.addParamValue('normalize' , false  , @islogical);
-    ip.addParamValue('stepsize'  , 0.05      , @isscalar);
+    ip.addParamValue('stepsize'  , 2      , @isscalar);
     ip.addParamValue('batchSize' , 2000   , @isscalar);
     ip.addParamValue('alpha' , 1e-2       , @isscalar);
-    ip.addParamValue('sigma' , 0.5        , @isscalar);
-    ip.addParamValue('threshold' , 1e-4   , @isscalar);
+    ip.addParamValue('sigma' , 0.3        , @isscalar);
+    ip.addParamValue('threshold' , 1e-3   , @isscalar);
     ip.addParamValue('pos' , 1            , @isscalar);
     ip.addParamValue('neg' , 1            , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
