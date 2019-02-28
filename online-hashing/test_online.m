@@ -66,6 +66,21 @@ for i = 1:length(model.test_iters)
     info.train_time(i) = itmd.time_train;
     info.train_iter(i) = iter;
     info.train_examples(i) = iter * opts.batchSize;
+
+    % TODO
+    % delete .mat file
+    delete(sprintf('%s_iter/%d.mat', prefix, iter));
+    
+    % evaluate prec_k1 and prec_n2
+    if i == length(model.test_iters)
+        opts.metric = 'prec_k1';
+        opts.prec_k = 1;
+        evaluate(Htrain, Htest, opts, Aff);
+
+        opts.metric = 'prec_n2';
+        opts.prec_n = 2;
+        evaluate(Htrain, Htest, opts, Aff);
+    end
 end
 
 end

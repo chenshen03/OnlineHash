@@ -86,7 +86,7 @@ ip.addParamValue('epoch'    , 1           , @isscalar)
 % Reservoir & Trigger Update module
 ip.addParamValue('reservoirSize'  , 0    , @isscalar);  % reservoir size
 ip.addParamValue('updateInterval' , 100  , @isscalar);  % use with baseline
-ip.addParamValue('trigger'        , 'mi' , @isstr);     % update trigger type
+ip.addParamValue('trigger'        , 'fix' , @isstr);     % update trigger type
 ip.addParamValue('triggerThresh'  , 0    , @isscalar);  % for trigger=mi
 
 % misc
