@@ -82,6 +82,7 @@ ip.addParamValue('ntrials'  , 3           , @isscalar);
 ip.addParamValue('ntests'   , 50          , @isscalar);
 ip.addParamValue('metric'   , 'mAP'       , @isstr);    % evaluation metric
 ip.addParamValue('epoch'    , 1           , @isscalar)
+ip.addParamValue('unseen'   , 0           , @isscalar)  % evaluate on unseen class
 
 % Reservoir & Trigger Update module
 ip.addParamValue('reservoirSize'  , 0    , @isscalar);  % reservoir size

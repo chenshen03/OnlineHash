@@ -200,6 +200,10 @@ paths.diary  = record_diary(opts.dirs.exp, ~all(res_exist));
 % ---------------------------------------------------------------------
 % 2. load data (only if necessary)
 % ---------------------------------------------------------------------
+% TODO chose zero-shot datasets when unseen equal to 1.
+if opts.unseen == 1
+	opts.dataset = [opts.dataset, '_zs'];
+end
 global Dataset
 if isfield(Dataset, 'name') && strcmp(Dataset.name, opts.dataset)
     logInfo('Dataset [%s] already loaded', Dataset.name);

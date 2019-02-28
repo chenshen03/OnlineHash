@@ -20,7 +20,14 @@ info = struct(...
     'bit_recomp'     , [] );
 
 testX = Dataset.Xtest;
-Aff = affinity(Dataset.Xtrain, Dataset.Xtest, Dataset.Ytrain, Dataset.Ytest, opts);
+retrievalX = Dataset.Xretrieval;
+if opts.unseen == 1
+    logInfo('evaluating on unseen class datasets.');
+    logInfo('');
+    Aff = affinity(Dataset.Xretrieval, Dataset.Xtest, Dataset.Yretrieval, Dataset.Ytest, opts);
+else
+    Aff = affinity(Dataset.Xtrain, Dataset.Xtest, Dataset.Ytrain, Dataset.Ytest, opts);
+end
 
 prefix = sprintf('%s/trial%d', opts.dirs.exp, trial);
 model = load([prefix '.mat']);
@@ -46,16 +53,29 @@ for i = 1:length(model.test_iters)
         % do kernel mapping for test data
         testX = exp(-0.5*sqdist(Dataset.Xtest', P.Xanchor')/P.sigma^2)';
         testX = [testX; ones(1,size(testX,2))]';
+        %TODO do kernel mapping for retrieval data
+        if opts.unseen == 1
+            retrievalX = exp(-0.5*sqdist(Dataset.Xretrieval', P.Xanchor')/P.sigma^2)';
+            retrievalX = [retrievalX; ones(1,size(retrievalX,2))]';
+        end
     elseif strcmp(opts.methodID, 'SketchHash')
         % subtract estimated mean
         testX = bsxfun(@minus, Dataset.Xtest, P.instFeatAvePre);
+        %TODO subtract estimated mean for retrieval data
+        if opts.unseen == 1
+            retrievalX = bsxfun(@minus, Dataset.Xretrieval, P.instFeatAvePre);
+        end
     end
     if runtest
         % NOTE: for intermediate iters, need to use Wsnapshot (not W!)
         %       to compute Htest, to make sure it's computed using the same
         %       hash mapping as Htrain.
         Htest  = (testX * itmd.Wsnapshot) > 0;
-        Htrain = itmd.H;
+        if opts.unseen == 1
+            Htrain  = (retrievalX * itmd.Wsnapshot) > 0;
+        else
+            Htrain = itmd.H;
+        end
         info.metric(i) = evaluate(Htrain, Htest, opts, Aff);
         info.bit_recomp(i) = itmd.bit_recomp;
     else
