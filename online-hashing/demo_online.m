@@ -158,7 +158,7 @@ elseif strcmp(method, 'SDOH')
     % PARAMETERS
     ip.addParamValue('normalize' , false  , @islogical);
     ip.addParamValue('stepsize'  , 2      , @isscalar);
-    ip.addParamValue('batchSize' , 5000   , @isscalar);
+    ip.addParamValue('batchSize' , 2000   , @isscalar);
     ip.addParamValue('alpha' , 1e-2       , @isscalar);
     ip.addParamValue('sigma' , 0.4        , @isscalar);
     ip.addParamValue('threshold' , 1e-4   , @isscalar);
