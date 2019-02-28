@@ -35,8 +35,6 @@ methods
         
         h = hadamard(obj.hbit);
         obj.h = h(randperm(obj.hbit), :);
-        cnum = length(unique(Y));
-        % disp(size(obj.h))
         
         % LSH init
         [n, d] = size(X);
@@ -50,7 +48,9 @@ methods
             obj.h = single(h * lshW > 0);
             obj.h(obj.h <= 0) = -1;
         end
-        obj.train_label = obj.h(1:cnum,:);
+        % cnum = length(unique(Y));
+        % obj.train_label = obj.h(1:cnum,:);
+        obj.train_label = obj.h;
         % lshW = lshW * orth(opts.nbits);
         
     end % init
