@@ -1,5 +1,5 @@
 close all; clear; clc; 
-sprintf("Loading cifar-zeroshot datasets...");
+sprintf("Loading mnist-zeroshot datasets...");
 opts.dirs.data = '/home/chenshen/Projects/Hash/OnlineHash/data';
 opts.unsupervised = 0;
 opts.nbits = 64;
@@ -10,9 +10,9 @@ opts.unseen = 1
 %% 数据处理
 % 根据unseen标志选择对应的数据集
 if opts.unseen == 1
-    DS = Datasets.cifar_zs(opts, normalizeX);
+    DS = Datasets.mnist_zs(opts, normalizeX);
 else
-    DS = Datasets.cifar(opts, normalizeX);
+    DS = Datasets.mnist(opts, normalizeX);
 end
 
 % 训练集
