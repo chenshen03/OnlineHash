@@ -159,6 +159,11 @@ else
     assert(strcmp(opts.metric, 'mAP'), ['unknown opts.metric: ' opts.metric]);
 end
 
+% TODO chose zero-shot datasets when unseen equal to 1.
+if opts.unseen == 1
+    opts.dataset = [opts.dataset, '_zs'];
+end
+
 
 % --------------------------------------------
 % identifier string for the current experiment

@@ -20,10 +20,10 @@ info = struct(...
     'bit_recomp'     , [] );
 
 testX = Dataset.Xtest;
-retrievalX = Dataset.Xretrieval;
 if opts.unseen == 1
     logInfo('evaluating on unseen class datasets.');
     logInfo('');
+    retrievalX = Dataset.Xretrieval;
     Aff = affinity(Dataset.Xretrieval, Dataset.Xtest, Dataset.Yretrieval, Dataset.Ytest, opts);
 else
     Aff = affinity(Dataset.Xtrain, Dataset.Xtest, Dataset.Ytrain, Dataset.Ytest, opts);
