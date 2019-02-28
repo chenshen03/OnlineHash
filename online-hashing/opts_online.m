@@ -90,7 +90,7 @@ ip.addParamValue('trigger'        , 'fix' , @isstr);     % update trigger type
 ip.addParamValue('triggerThresh'  , 0    , @isscalar);  % for trigger=mi
 
 % misc
-ip.addParamValue('prefix'    , ''            , @isstr);
+ip.addParamValue('prefix'    , 'mAP'            , @isstr);
 ip.addParamValue('randseed'  , 12345         , @isscalar);
 ip.addParamValue('override'  , 0             , @isscalar);
 ip.addParamValue('showplots' , 0             , @isscalar);
@@ -176,6 +176,8 @@ end
 
 if isempty(opts.prefix)
     prefix = sprintf('%s',datetime('today','Format','yyyyMMdd')); 
+else
+    prefix = opts.prefix;
 end
 opts.identifier = [prefix '-' idr];
 

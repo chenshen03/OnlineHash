@@ -76,7 +76,7 @@ elseif strcmp(method, 'AdaptHash')
     ip.addParamValue('normalize' , true , @islogical);
     ip.addParamValue('alpha'     , 0.9  , @isscalar);
     ip.addParamValue('beta'      , 1e-2 , @isscalar);
-    ip.addParamValue('stepsize'  , 1    , @isscalar);
+    ip.addParamValue('stepsize'  , 0.1    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
     opts.identifier = sprintf('A%gB%gS%g', opts.alpha, opts.beta, opts.stepsize);
@@ -93,8 +93,8 @@ elseif strcmp(method, 'OKH')
     %	c 	 - (float) Parameter C as in Alg. 1 of OKH. 
     % 	alpha	 - (float) \alpha as in Eq. 3 of OKH
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('c'         , 0.1  , @isscalar);
-    ip.addParamValue('alpha'     , 0.2  , @isscalar);
+    ip.addParamValue('c'         , 0.001  , @isscalar);
+    ip.addParamValue('alpha'     , 0.3  , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
     opts.identifier = sprintf('C%gA%g', opts.c, opts.alpha);
