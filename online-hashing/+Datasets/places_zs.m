@@ -59,7 +59,8 @@ Y_unseen = Y(ind_unseen);
 
 clear ind_seen ind_unseen;
 
-T = round(ratio * length(Y_unseen) / length(unseen_class));
+% T = round(ratio * length(Y_unseen) / length(unseen_class));
+T = 20;
 
 % split
 [iretrieval, itest] = Datasets.split_dataset(X_unseen, Y_unseen, T);
