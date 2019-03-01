@@ -1,4 +1,4 @@
-function DS = cifar_zs(opts, normalizeX)
+function DS = places_zs(opts, normalizeX)
 % Load and prepare CNN features. The data paths must be changed. For all datasets,
 % X represents the data matrix. Rows correspond to data instances and columns
 % correspond to variables/features.
@@ -10,8 +10,10 @@ function DS = cifar_zs(opts, normalizeX)
 %
 % INPUTS
 %	opts   - (struct)  Parameter structure.
+%   normalizeX - (int)     Choices are {0, 1}. If normalizeX = 1, the data is 
+% 			   mean centered and unit-normalized. 
 % 		
-% OUTPUTS: struct DS
+% OUTPUTS
 % 	Xtrain - (nxd) 	   Training data matrix, each row corresponds to a data
 %			   instance.
 %	Ytrain - (nxl)     Training data label matrix. l=1 for multiclass datasets.
@@ -24,15 +26,12 @@ function DS = cifar_zs(opts, normalizeX)
 % 
 if nargin < 2, normalizeX = 1; end
 if ~normalizeX, logInfo('will NOT pre-normalize data'); end
-    
+
 tic;
-load(fullfile(opts.dirs.data, 'CIFAR10_VGG16_fc7.mat'), ...
-    'trainCNN', 'testCNN', 'trainLabels', 'testLabels');
-X = [trainCNN; testCNN];
-Y = [trainLabels; testLabels] + 1;
-ind = randperm(length(Y));
-X = X(ind, :);
-Y = Y(ind);
+load(fullfile(opts.dirs.data, 'Places205_AlexNet_fc7_PCA128.mat'), ...
+    'pca_feats', 'labels');
+X = pca_feats;
+Y = labels + 1;
 
 % normalize features
 if normalizeX
@@ -40,28 +39,28 @@ if normalizeX
     X = normalize(double(X));  % then scale to unit length
 end
 
-% ����seen class��unseen class
-num_class = 10;
+% 生成seen class和unseen class
+num_class = 205;
 ratio = 0.25;
 classes = randperm(num_class);
 unseen_num = round(ratio * num_class);
 unseen_class = classes(1:unseen_num)
 seen_class = classes(unseen_num+1:end)
 
-% ���ɰ���75%��seen class����
+% 生成包含75%的seen class数据
 ind_seen = logical(sum(Y==seen_class, 2));
 X_seen = X(ind_seen, :);
 Y_seen = Y(ind_seen);
 
-% ���ɰ���25%��unseen class����
+% 生成包含25%的unseen class数据
 ind_unseen = logical(sum(Y==unseen_class, 2));
 X_unseen = X(ind_unseen, :);
 Y_unseen = Y(ind_unseen);
 
-clear ind train_ind test_ind;
+clear ind_seen ind_unseen;
 
 % T = round(ratio * length(Y_unseen) / length(unseen_class));
-T = 100;
+T = 20;
 
 % split
 [iretrieval, itest] = Datasets.split_dataset(X_unseen, Y_unseen, T);
@@ -75,5 +74,5 @@ DS.Xretrieval  = X_unseen(iretrieval, :);
 DS.Yretrieval  = Y_unseen(iretrieval);
 DS.thr_dist = -Inf;
 
-logInfo('[CIFAR10_CNN_Zero_Shot] loaded in %.2f secs', toc);
+logInfo('[Places205_CNN_Zero_Shot] loaded in %.2f secs', toc);
 end
