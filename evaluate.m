@@ -125,7 +125,7 @@ else
     chunkSize = ceil(trainsize/10);
     for i = 1:ceil(trainsize/chunkSize)
         I = (i-1)*chunkSize+1 : min(i*chunkSize, trainsize);
-        tmp = (2*single(Htrain(:,I))-1) * Ltest';
+        tmp = (2*single(Htrain(I,:))-1) * Ltest';
         sim(I, :) = int8(tmp);
     end
     clear Ltest tmp
