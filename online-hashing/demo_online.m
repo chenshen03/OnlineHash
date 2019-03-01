@@ -74,9 +74,9 @@ elseif strcmp(method, 'AdaptHash')
     % 	beta 	 - (float) \lambda as in Alg. 1
     % 	stepsize - (float) The learning rate. 
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('alpha'     , 0.8  , @isscalar);
+    ip.addParamValue('alpha'     , 0.9  , @isscalar);
     ip.addParamValue('beta'      , 1e-2 , @isscalar);
-    ip.addParamValue('stepsize'  , 0.2    , @isscalar);
+    ip.addParamValue('stepsize'  , 0.1    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
     opts.identifier = sprintf('A%gB%gS%g', opts.alpha, opts.beta, opts.stepsize);
@@ -93,8 +93,8 @@ elseif strcmp(method, 'OKH')
     %	c 	 - (float) Parameter C as in Alg. 1 of OKH. 
     % 	alpha	 - (float) \alpha as in Eq. 3 of OKH
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('c'         , 0.001  , @isscalar);
-    ip.addParamValue('alpha'     , 0.3  , @isscalar);
+    ip.addParamValue('c'         , 0.0001  , @isscalar);
+    ip.addParamValue('alpha'     , 0.7  , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
     opts.identifier = sprintf('C%gA%g', opts.c, opts.alpha);
@@ -137,7 +137,7 @@ elseif strcmp(method, 'SketchHash')
     % 	sketchSize - (int) size of the sketch matrix.
     % 	 batchSize - (int) The batch size, i.e. size of the data chunk
     ip.addParamValue('normalize'  , false , @islogical);
-    ip.addParamValue('sketchSize' , 200   , @isscalar);
+    ip.addParamValue('sketchSize' , 100   , @isscalar);
     ip.addParamValue('batchSize'  , 50    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 
@@ -158,12 +158,12 @@ elseif strcmp(method, 'SDOH')
     % PARAMETERS
     ip.addParamValue('normalize' , false  , @islogical);
     ip.addParamValue('stepsize'  , 2      , @isscalar);
-    ip.addParamValue('batchSize' , 2000   , @isscalar);
+    ip.addParamValue('batchSize' , 5000   , @isscalar);
     ip.addParamValue('alpha' , 1e-2       , @isscalar);
-    ip.addParamValue('sigma' , 0.3        , @isscalar);
-    ip.addParamValue('threshold' , 1e-3   , @isscalar);
-    ip.addParamValue('pos' , 1            , @isscalar);
-    ip.addParamValue('neg' , 1            , @isscalar);
+    ip.addParamValue('sigma' , 0.5        , @isscalar);
+    ip.addParamValue('threshold' , 1e-4   , @isscalar);
+    ip.addParamValue('pos' , 60            , @isscalar);
+    ip.addParamValue('neg' , 10            , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
     opts.identifier = sprintf('Si%gT%gS%gBat%d', opts.sigma, opts.threshold, opts.stepsize, opts.batchSize);
 
