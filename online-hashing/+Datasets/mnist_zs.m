@@ -1,4 +1,4 @@
-function DS = mnist(opts, normalizeX)
+function DS = mnist_zs(opts, normalizeX)
 % Load and prepare CNN features. The data paths must be changed. For all datasets,
 % X represents the data matrix. Rows correspond to data instances and columns
 % correspond to variables/features.
@@ -40,7 +40,7 @@ if normalizeX
     X = normalize(double(X));  % then scale to unit length
 end
 
-% Éú³Éseen classºÍunseen class
+% ï¿½ï¿½ï¿½ï¿½seen classï¿½ï¿½unseen class
 num_class = 10;
 ratio = 0.25;
 classes = randperm(num_class);
@@ -48,12 +48,12 @@ unseen_num = round(ratio * num_class);
 unseen_class = classes(1:unseen_num)
 seen_class = classes(unseen_num+1:end)
 
-% Éú³É°üº¬75%µÄseen classÊý¾Ý
+% ï¿½ï¿½ï¿½É°ï¿½ï¿½ï¿½75%ï¿½ï¿½seen classï¿½ï¿½ï¿½ï¿½
 ind_seen = logical(sum(Y==seen_class, 2));
 X_seen = X(ind_seen, :);
 Y_seen = Y(ind_seen);
 
-% Éú³É°üº¬25%µÄunseen classÊý¾Ý
+% ï¿½ï¿½ï¿½É°ï¿½ï¿½ï¿½25%ï¿½ï¿½unseen classï¿½ï¿½ï¿½ï¿½
 ind_unseen = logical(sum(Y==unseen_class, 2));
 X_unseen = X(ind_unseen, :);
 Y_unseen = Y(ind_unseen);
