@@ -148,7 +148,7 @@ elseif strcmp(method, 'HCOH')
     % PARAMETERS
     ip.addParamValue('normalize' , true   , @islogical);
     ip.addParamValue('stepsize'  , 0.2    , @isscalar);
-    ip.addParamValue('hbit'      , 64     , @isscalar);
+    ip.addParamValue('hbit'      , 256     , @isscalar);
     ip.addParamValue('batchSize' , 1      , @isscalar);
     ip.addParamValue('lambda'    , 0.0    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
