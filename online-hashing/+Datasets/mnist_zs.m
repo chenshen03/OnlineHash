@@ -1,4 +1,4 @@
-function DS = cifar_zs(opts, normalizeX)
+function DS = mnist_zs(opts, normalizeX)
 % Load and prepare CNN features. The data paths must be changed. For all datasets,
 % X represents the data matrix. Rows correspond to data instances and columns
 % correspond to variables/features.
@@ -26,10 +26,10 @@ if nargin < 2, normalizeX = 1; end
 if ~normalizeX, logInfo('will NOT pre-normalize data'); end
     
 tic;
-load(fullfile(opts.dirs.data, 'CIFAR10_VGG16_fc7.mat'), ...
-    'trainCNN', 'testCNN', 'trainLabels', 'testLabels');
-X = [trainCNN; testCNN];
-Y = [trainLabels; testLabels] + 1;
+load(fullfile(opts.dirs.data, 'mnist.mat'), ...
+    'trainMNIST', 'testMNIST', 'trainLabel', 'testLabel');
+X = [trainMNIST; testMNIST];
+Y = [trainLabel; testLabel] + 1;
 ind = randperm(length(Y));
 X = X(ind, :);
 Y = Y(ind);
@@ -75,5 +75,5 @@ DS.Xretrieval  = X_unseen(iretrieval, :);
 DS.Yretrieval  = Y_unseen(iretrieval);
 DS.thr_dist = -Inf;
 
-logInfo('[CIFAR10_CNN_Zero_Shot] loaded in %.2f secs', toc);
+logInfo('[MNIST_Zero_Shot] loaded in %.2f secs', toc);
 end
