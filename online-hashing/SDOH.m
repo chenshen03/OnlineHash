@@ -10,9 +10,9 @@ opts.unseen = 1
 %% 数据处理
 % 根据unseen标志选择对应的数据集
 if opts.unseen == 1
-    DS = Datasets.place_zs(opts, normalizeX);
+    DS = Datasets.places_zs(opts, normalizeX);
 else
-    DS = Datasets.place(opts, normalizeX);
+    DS = Datasets.places(opts, normalizeX);
 end
 
 % 训练集
