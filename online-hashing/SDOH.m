@@ -4,7 +4,7 @@ opts.dirs.data = '/home/chenshen/Projects/Hash/OnlineHash/data';
 opts.unsupervised = 0;
 opts.nbits = 64;
 normalizeX = 0;
-opts.unseen = 0
+opts.unseen = 1
 
 
 %% 数据处理
@@ -105,6 +105,7 @@ opts.prec_n = 2;
 res = evaluate(Htrain', Htest', opts, Aff);
 
 opts.metric = 'mAP_1000';
+opts.mAP = 1000;
 res = evaluate(Htrain', Htest', opts, Aff);
 
 % results = [results; res];

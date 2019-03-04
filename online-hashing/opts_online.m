@@ -80,7 +80,7 @@ ip.addRequired('nbits'      , @isscalar);
 ip.addParamValue('numTrain' , 20e3        , @isscalar);
 ip.addParamValue('ntrials'  , 3           , @isscalar);
 ip.addParamValue('ntests'   , 50          , @isscalar);
-ip.addParamValue('metric'   , 'mAP'       , @isstr);    % evaluation metric
+ip.addParamValue('metric'   , 'mAP_1000'  , @isstr);    % evaluation metric
 ip.addParamValue('epoch'    , 1           , @isscalar)
 ip.addParamValue('unseen'   , 0           , @isscalar)  % evaluate on unseen class
 
@@ -91,7 +91,7 @@ ip.addParamValue('trigger'        , 'fix' , @isstr);     % update trigger type
 ip.addParamValue('triggerThresh'  , 0    , @isscalar);  % for trigger=mi
 
 % misc
-ip.addParamValue('prefix'    , 'mAP'            , @isstr);
+ip.addParamValue('prefix'    , 'mAP_1000'    , @isstr);
 ip.addParamValue('randseed'  , 12345         , @isscalar);
 ip.addParamValue('override'  , 0             , @isscalar);
 ip.addParamValue('showplots' , 0             , @isscalar);
