@@ -4,12 +4,14 @@ opts.dirs.data = '/home/chenshen/Projects/Hash/OnlineHash/data';
 opts.unsupervised = 0;
 opts.nbits = 64;
 normalizeX = 0;
-opts.unseen = 1
+opts.unseen = 2
 
 
 %% 数据处理
 % 根据unseen标志选择对应的数据集
-if opts.unseen == 1
+if opts.unseen == 2
+    DS = Datasets.mnist_zs1(opts, normalizeX);
+elseif opts.unseen == 1
     % DS = Datasets.cifar_zs(opts, normalizeX);
     DS = Datasets.mnist_zs(opts, normalizeX);
     % DS = Datasets.places_zs(opts, normalizeX);
@@ -36,7 +38,7 @@ testLabel = testLabels;
 [Ntest, Dtest] = size(testCNN);
 
 % 检索集
-if opts.unseen == 1
+if opts.unseen == 1 || opts.unseen == 2
     retrievalCNN = double(DS.Xretrieval);
     retrievalLabels = DS.Yretrieval;
     %retrieval = retrievalCNN ./ sqrt(sum(retrievalCNN .* retrievalCNN, 2));  % mapped into a sphere space
@@ -60,10 +62,18 @@ clear trainCNN testCNN retrievalCNN trainLabels testLabels retrievalLabels
 % training_size = 20000;
 
 % mnist
+% n_t = 2000;
+% alpha = 1e-2;
+% sigma = 0.3;  % places 上0.4上下调整, 一般情况下，sigma越大loss越小,反之越大. 
+% lr = 0.01;
+% threshold = 1e-3;
+% pos = 1;
+% neg = 1;
+% training_size = 20000;
 n_t = 2000;
 alpha = 1e-2;
 sigma = 0.3;  % places 上0.4上下调整, 一般情况下，sigma越大loss越小,反之越大. 
-lr = 0.01;
+lr = 2;
 threshold = 1e-3;
 pos = 1;
 neg = 1;
@@ -114,7 +124,7 @@ toc;
 
 %% 评价指标
 Htest = single(W_t' * test > 0);
-if opts.unseen == 1
+if opts.unseen == 1 || opts.unseen == 2
     Htrain = single(W_t' * retrieval > 0);
     Aff = affinity([], [], retrievalLabel, testLabel, opts);
 else
@@ -130,8 +140,8 @@ opts.metric = 'prec_n2';
 opts.prec_n = 2;
 res = evaluate(Htrain', Htest', opts, Aff);
 
-opts.metric = 'mAP_1000';
-opts.mAP = 1000;
+opts.metric = 'mAP';
+% opts.mAP = 1000;
 res = evaluate(Htrain', Htest', opts, Aff);
 
 % results = [results; res];
@@ -140,5 +150,3 @@ res = evaluate(Htrain', Htest', opts, Aff);
 % logInfo('');
 % logInfo('  AUC mAP: %.3g +/- %.3g', mean(auc), std(auc));
 % logInfo('FINAL mAP: %.3g +/- %.3g', mean(final), std(final));
-
-clear;
