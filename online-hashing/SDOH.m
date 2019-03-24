@@ -10,14 +10,15 @@ opts.unseen = 2
 %% 数据处理
 % 根据unseen标志选择对应的数据集
 if opts.unseen == 2
-    DS = Datasets.mnist_zs1(opts, normalizeX);
+    DS = Datasets.cifar_zs1(opts, normalizeX);
+    % DS = Datasets.mnist_zs1(opts, normalizeX);
 elseif opts.unseen == 1
-    % DS = Datasets.cifar_zs(opts, normalizeX);
-    DS = Datasets.mnist_zs(opts, normalizeX);
+    DS = Datasets.cifar_zs(opts, normalizeX);
+    % DS = Datasets.mnist_zs(opts, normalizeX);
     % DS = Datasets.places_zs(opts, normalizeX);
 else
-    % DS = Datasets.cifar(opts, normalizeX);
-    DS = Datasets.mnist(opts, normalizeX);
+    DS = Datasets.cifar(opts, normalizeX);
+    % DS = Datasets.mnist(opts, normalizeX);
     % DS = Datasets.places(opts, normalizeX);
 end
 
@@ -51,15 +52,15 @@ clear trainCNN testCNN retrievalCNN trainLabels testLabels retrievalLabels
 
 
 %% 参数初始化
-% % cifar
-% n_t = 2000;
-% alpha = 1e-2;
-% sigma = 0.5;  % places 上0.4上下调整, 一般情况下，sigma越大loss越小,反之越大. 
-% lr = 0.01;
-% threshold = 1e-3;
-% pos = 1;
-% neg = 1;
-% training_size = 20000;
+% cifar
+n_t = 2000;
+alpha = 1e-2;
+sigma = 0.5;  % places 上0.4上下调整, 一般情况下，sigma越大loss越小,反之越大. 
+lr = 0.01;
+threshold = 1e-3;
+pos = 1;
+neg = 1;
+training_size = 20000;
 
 % mnist
 % n_t = 2000;
@@ -70,14 +71,6 @@ clear trainCNN testCNN retrievalCNN trainLabels testLabels retrievalLabels
 % pos = 1;
 % neg = 1;
 % training_size = 20000;
-n_t = 2000;
-alpha = 1e-2;
-sigma = 0.3;  % places 上0.4上下调整, 一般情况下，sigma越大loss越小,反之越大. 
-lr = 2;
-threshold = 1e-3;
-pos = 1;
-neg = 1;
-training_size = 20000;
 
 % % Places205
 % n_t = 5000;
