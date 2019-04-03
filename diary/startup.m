@@ -5,7 +5,7 @@ logInfo('done.');
 
 cd online-hashing;
 
-demo_online('OKH','labelme',64,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+demo_online('OKH','labelme',64,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','override',1)
 
 % CIFAR10
 demo_online('OKH','cifar',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
