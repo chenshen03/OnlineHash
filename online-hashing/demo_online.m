@@ -93,7 +93,7 @@ elseif strcmp(method, 'OKH')
     %	c 	 - (float) Parameter C as in Alg. 1 of OKH. 
     % 	alpha	 - (float) \alpha as in Eq. 3 of OKH
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('c'         , 0.001  , @isscalar);
+    ip.addParamValue('c'         , 0.0001  , @isscalar);
     ip.addParamValue('alpha'     , 0.3  , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
 

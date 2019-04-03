@@ -70,56 +70,51 @@ for iter = 1:opts.num_iters
         trainInd, iter, opts);
     info.time_train = info.time_train + toc(t_);
 
+    % ---- reservoir update & compute new reservoir hash table ----
+    t_ = tic;
+    Hres_new = [];
     if opts.reservoirSize > 0
-	    % ---- reservoir update & compute new reservoir hash table ----
-	    t_ = tic;
-	    Hres_new = [];
-	    if opts.reservoirSize > 0
-	        % update reservoir
-	        [reservoir, update_ind] = update_reservoir(reservoir, ...
-	            Xtrain(batch, :), Ytrain(batch, :), ...
-	            opts.reservoirSize, opts.unsupervised);
-	        % update reservoir hash table (with snapshot)
-	        Hres = methodObj.encode(Wsnapshot, reservoir.X, true);
-	        reservoir.H(update_ind, :) = Hres(update_ind, :);
-	    end
+        % update reservoir
+        [reservoir, update_ind] = update_reservoir(reservoir, ...
+            Xtrain(batch, :), Ytrain(batch, :), ...
+            opts.reservoirSize, opts.unsupervised);
+        % update reservoir hash table (with snapshot)
+        Hres = methodObj.encode(Wsnapshot, reservoir.X, true);
+        reservoir.H(update_ind, :) = Hres(update_ind, :);
+    end
 
-	    % ---- determine whether to update or not ----
-	    if ~mod(iter*opts.batchSize, opts.updateInterval)
-	        % new reservoir hash table (with new W)
-	        Hres_new = methodObj.encode(W, reservoir.X, true);
-	        update_table = trigger_update(iter, Wsnapshot, W, reservoir, ...
-	            Hres_new, opts);
-	    end
-	    info.time_reserv = info.time_reserv + toc(t_);
+    % ---- determine whether to update or not ----
+    if ~mod(iter*opts.batchSize, opts.updateInterval)
+        % new reservoir hash table (with new W)
+        if opts.reservoirSize > 0
+        	Hres_new = methodObj.encode(W, reservoir.X, true);
+       	else
+       		Hres_new = [];
+       	end
+        update_table = trigger_update(iter, Wsnapshot, W, reservoir, ...
+            Hres_new, opts);
+    end
+    info.time_reserv = info.time_reserv + toc(t_);
 
-	    % ---- hash table update, etc ----
-	    if update_table
-	        Wsnapshot = W;  % update snapshot
-	        info.update_iters = [info.update_iters, iter];
-	        if opts.reservoirSize > 0
-	            reservoir.H = Hres_new;
-	        end
-
-	        % recompute hash table
-	        % NOTE: We only record time for matrix multiplication here as the data 
-	        %       (Xtrain) is completely loaded in memory. This is not necessarily 
-	        %       the case with large databases, where disk I/O would probably be 
-	        %       involved in the hash table recomputation.
-	        t_ = tic;
-	        H  = methodObj.encode(Wsnapshot, Xtrain, false);
-	        info.bit_recomp  = info.bit_recomp + prod(size(H));
-	        info.time_update = info.time_update + toc(t_);
-	        update_table = false;
-	    end
-	else
-		Wsnapshot = W;
-		info.update_iters = [info.update_iters, iter];
-		H = methodObj.encode(Wsnapshot, Xtrain, false);
-        if ~mod(iter*opts.batchSize, opts.updateInterval)
-            logInfo('[Fix] iter %d/%d, update = 1', iter, opts.num_iters);
+    % ---- hash table update, etc ----
+    if update_table
+        Wsnapshot = W;  % update snapshot
+        info.update_iters = [info.update_iters, iter];
+        if opts.reservoirSize > 0
+            reservoir.H = Hres_new;
         end
-	end
+
+        % recompute hash table
+        % NOTE: We only record time for matrix multiplication here as the data 
+        %       (Xtrain) is completely loaded in memory. This is not necessarily 
+        %       the case with large databases, where disk I/O would probably be 
+        %       involved in the hash table recomputation.
+        t_ = tic;
+        H  = methodObj.encode(Wsnapshot, Xtrain, false);
+        info.bit_recomp  = info.bit_recomp + prod(size(H));
+        info.time_update = info.time_update + toc(t_);
+        update_table = false;
+    end
 
     % ---- CHECKPOINT: save intermediate model ----
     if ismember(iter, test_iters)

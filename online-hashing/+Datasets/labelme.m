@@ -45,7 +45,7 @@ if normalizeX
 end
 
 ind = randperm(size(X, 1));
-no_tst = 1000;
+no_tst = 2000;
 
 DS = [];
 DS.Xtest  = X(ind(1:no_tst),:);
