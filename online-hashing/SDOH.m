@@ -4,6 +4,7 @@ opts.dirs.data = '/home/chenshen/Projects/Hash/OnlineHash/data';
 opts.unsupervised = 0;
 opts.nbits = 64;
 normalizeX = 0;
+opts.normalize = false;
 opts.unseen = 1;
 
 
