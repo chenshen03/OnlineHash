@@ -4,7 +4,7 @@ function info = train_online(methodObj, Dataset, trial, res_file, test_iters, op
 % INPUTS
 %    methodObj - (object)
 %      Dataset - (struct) 
-% 	 trial - (int) trial number
+%        trial - (int) trial number
 %   test_iters - (int) A vector specifiying the checkpoints, see train.m .
 %         opts - (struct) Parameter structure.
 %
@@ -87,10 +87,10 @@ for iter = 1:opts.num_iters
     if ~mod(iter*opts.batchSize, opts.updateInterval)
         % new reservoir hash table (with new W)
         if opts.reservoirSize > 0
-        	Hres_new = methodObj.encode(W, reservoir.X, true);
-       	else
-       		Hres_new = [];
-       	end
+            Hres_new = methodObj.encode(W, reservoir.X, true);
+        else
+            Hres_new = [];
+        end
         update_table = trigger_update(iter, Wsnapshot, W, reservoir, ...
             Hres_new, opts);
     end

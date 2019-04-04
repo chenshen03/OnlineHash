@@ -23,7 +23,6 @@ function DS = cifar(opts, normalizeX)
 %			   load_gist.m
 % 
 if nargin < 2, normalizeX = 1; end
-if ~normalizeX, logInfo('will NOT pre-normalize data'); end
     
 tic;
 load(fullfile(opts.dirs.data, 'CIFAR10_VGG16_fc7.mat'), ...
@@ -37,9 +36,11 @@ clear ind
 T = 100;
 
 % normalize features
-if normalizeX
+if normalizeX && opts.normalize
     X = bsxfun(@minus, X, mean(X,1));  % first center at 0
     X = normalize(double(X));  % then scale to unit length
+else
+    logInfo('will NOT pre-normalize data');
 end
 
 % split
