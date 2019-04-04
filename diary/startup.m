@@ -5,14 +5,12 @@ logInfo('done.');
 
 cd online-hashing;
 
-demo_online('OKH','labelme',64,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','override',1)
-
 % CIFAR10
 demo_online('OKH','cifar',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
 
-demo_online('SketchHash','cifar',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+demo_online('SketchHash','cifar',32,'ntrials',1,'ntest',2,'numTrain',20000,'updateInterval',100,'trigger','fix','override',1)
 
-demo_online('AdaptHash','cifar',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain', 20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+demo_online('AdaptHash','cifar',64,'ntrials',1,'ntest',2,'numTrain', 20000,'updateInterval',100,'trigger','fix','override',1)
 
 demo_online('OSH','cifar',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain', 20000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
 	
@@ -52,3 +50,8 @@ demo_online('HCOH','places',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain', 1000
 
 demo_online('SDOH','places',64,'unseen',1,'ntrials',1,'ntest',2,'numTrain', 100000,'updateInterval',2000,'trigger','fix','reservoirSize',200,'override',1)
 % LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 matlab
+
+% Labelme
+demo_online('OKH','labelme',48,'ntrials',1,'ntest',2,'numTrain',2000,'updateInterval',100,'trigger','fix','override',1)
+
+demo_online('AdaptHash','labelme',48,'ntrials',1,'ntest',2,'numTrain',2000,'updateInterval',100,'trigger','fix','override',1)

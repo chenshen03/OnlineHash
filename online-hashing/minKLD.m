@@ -1,4 +1,4 @@
-function [trainCode, W_t, obj, Q, P] = minKLD(alpha, P, bit, X_t, W_t, S, lr, threshold, pos, neg)
+function [trainCode, W_t, minCost, Q, P] = minKLD(alpha, P, bit, X_t, W_t, S, lr, threshold, pos, neg)
 % minKLD:   minimizing KL-divergence, developed from tsne_p.m of t-SNE by Laurens van der Maaten
 % Input: 
 %   alpha: model parameter \alpha (1 * 1)
@@ -7,7 +7,7 @@ function [trainCode, W_t, obj, Q, P] = minKLD(alpha, P, bit, X_t, W_t, S, lr, th
 %   initC: initial values of to-be-learnt hash code matrix (n * bit)
 % Output:
 %   trainCode: learnt hash code matrix of training data (n * bit)
-%   obj: optimal value of the objective function
+%   minCost: optimal value of the objective function
 
     % Initialize some variables
     n = size(P, 1);                                     % number of instances
@@ -83,8 +83,6 @@ function [trainCode, W_t, obj, Q, P] = minKLD(alpha, P, bit, X_t, W_t, S, lr, th
         end
     end
     
-    trainCode = minTrainCode;
-    obj = minCost;
-	
+    trainCode = minTrainCode;	
 	
 	
