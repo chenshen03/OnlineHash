@@ -80,7 +80,7 @@ for t = 1:n_t:training_size
         % P(P == 1) = 0.4;
         % P(P == 0) = 0.001;
     end
-    [ydata, W_t, obj, Q, P] = minKLD(alpha/n_t, P, opts.nbits, X_t, W_t, S, lr, threshold, pos, neg);
+    [ydata, W_t, minCost, Q, P] = minKLD(alpha/n_t, P, opts.nbits, X_t, W_t, S, lr, threshold, pos, neg);
     
 end
 toc;

@@ -1,0 +1,6 @@
+_Store
+cachedir/
+logs/
+vlfeat/
+data/
+*.ipynb_checkpoints
