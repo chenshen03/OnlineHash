@@ -52,7 +52,7 @@ DS.Xtest  = X(ind(1:no_tst),:);
 DS.Xtrain = X(ind(no_tst+1:end),:);
 DS.Ytrain = [];
 DS.Ytest  = [];
-DS.thr_dist = prctile(pdist(DS.Xtrain(1:2000,:), 'Euclidean'), 5)
+DS.thr_dist = prctile(pdist(DS.Xtrain(1:20000,:), 'Euclidean'), 5)
 
 logInfo('[LabelMe_GIST] loaded in %.2f secs', toc);
 end

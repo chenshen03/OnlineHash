@@ -74,7 +74,7 @@ elseif strcmp(method, 'AdaptHash')
     % 	beta 	 - (float) \lambda as in Alg. 1
     % 	stepsize - (float) The learning rate. 
     ip.addParamValue('normalize' , true , @islogical);
-    ip.addParamValue('alpha'     , 0.9  , @isscalar);
+    ip.addParamValue('alpha'     , 0.3  , @isscalar);
     ip.addParamValue('beta'      , 1e-2 , @isscalar);
     ip.addParamValue('stepsize'  , 0.1    , @isscalar);
     ip.parse(varargin{:}); opts = ip.Results;
