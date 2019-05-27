@@ -38,7 +38,7 @@ methods
     end % init
 
 
-    function [W, sampleIdx] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, sampleIdx, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
         [n, d] = size(X);
         sampleIdx = I(2*t-1: 2*t);
         Xsample = X(sampleIdx, :);
