@@ -62,7 +62,7 @@ methods
     end
 
 
-    function [W, ind] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, ind, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
         ind = I(2*t-1 : 2*t);
         if opts.unsupervised
             Y1 = [];

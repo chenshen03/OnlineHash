@@ -42,7 +42,7 @@ methods
     end
 
 
-    function [W, ind] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, ind, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
 
         %%%%%%%%%% LOAD BATCH DATA - BELOW %%%%%%%%%%
         ind = (t-1)*opts.batchSize + (1:opts.batchSize);

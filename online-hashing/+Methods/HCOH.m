@@ -56,7 +56,7 @@ methods
     end % init
 
 
-    function [W, sampleIdx] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, sampleIdx, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
         ind = (t-1)*opts.batchSize + (1:opts.batchSize);
         sampleIdx = I(ind);
         % sampleIdx = t:(t+obj.batchSize-1);
