@@ -56,14 +56,14 @@ methods
     end
 
 
-    function [W, ind] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, ind, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
         % new training point
         ind = I(t);
         spoint = X(ind, :);
         slabel = Y(ind, :);
         
         % Assign ECOC, SGD update
-        target_codes = obj.find_target_codes(slabel);
+        [target_codes, obj] = obj.find_target_codes(slabel);
         for c = 1:size(target_codes, 1)
             code = target_codes(c, :);
             W = obj.sgd_update(W, spoint, code);
@@ -110,7 +110,7 @@ methods
     end
 
 
-    function target_codes = find_target_codes(obj, slabel)
+    function [target_codes, obj] = find_target_codes(obj, slabel)
         % find target codes for a new labeled example
         assert(~isempty(slabel) && sum(slabel) ~= 0, ...
             'Error: finding target codes for unlabeled example');

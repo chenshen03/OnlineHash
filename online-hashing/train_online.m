@@ -66,7 +66,7 @@ logInfo('%s: %d train_iters', opts.identifier, opts.num_iters);
 update_table = false;
 for iter = 1:opts.num_iters
     t_ = tic;
-    [W, batch] = methodObj.train1batch(W, reservoir, Xtrain, Ytrain, ...
+    [W, batch, methodObj] = methodObj.train1batch(W, reservoir, Xtrain, Ytrain, ...
         trainInd, iter, opts);
     info.time_train = info.time_train + toc(t_);
 
