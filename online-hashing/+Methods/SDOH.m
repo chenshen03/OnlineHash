@@ -28,7 +28,7 @@ methods
     end
 
 
-    function [W, ind] = train1batch(obj, W, R, X, Y, I, t, opts)
+    function [W, ind, obj] = train1batch(obj, W, R, X, Y, I, t, opts)
 
         n_t = obj.batchSize;
         
@@ -53,7 +53,7 @@ methods
     %        P(P == 1) = 0.4;
     %        P(P == 0) = 0.001;
         end
-        [ydata, W, obj, Q, P] = minKLD(obj.alpha/n_t, P, opts.nbits, X_t, W, S, obj.stepsize, obj.threshold, obj.pos, obj.neg);
+        [ydata, W, minCost, Q, P] = minKLD(obj.alpha/n_t, P, opts.nbits, X_t, W, S, obj.stepsize, obj.threshold, obj.pos, obj.neg);
     end
 
 
