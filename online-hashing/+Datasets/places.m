@@ -32,7 +32,7 @@ load(fullfile(opts.dirs.data, 'Places205_AlexNet_fc7_PCA128.mat'), ...
     'pca_feats', 'labels');
 X = pca_feats;
 Y = labels + 1;
-T = 20;
+T = 50;
 
 % normalize features
 if normalizeX
