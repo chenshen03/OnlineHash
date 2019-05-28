@@ -100,6 +100,12 @@ for i = 1:length(model.test_iters)
         opts.metric = 'prec_n2';
         opts.prec_n = 2;
         evaluate(Htrain, Htest, opts, Aff);
+        
+        opts.metric = 'prec_recall';
+        res = evaluate(Htrain, Htest, opts, Aff);
+        plot_recall_prec(res.recall, res.precision, opts);
+        info.recall = res.recall;
+        info.precision = res.precision;
     end
 end
 
