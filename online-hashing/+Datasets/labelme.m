@@ -33,26 +33,27 @@ function DS = load_gist(opts, normalizeX)
 % 			   See labelme case below.
 %
 if nargin < 2, normalizeX = 1; end
-if ~normalizeX, logInfo('will NOT pre-normalize data'); end
 
 tic;
 load(fullfile(opts.dirs.data, 'LabelMe_GIST.mat'), 'gist');
 
 % normalize features
-if normalizeX
+if normalizeX && opts.normalize
     X = bsxfun(@minus, gist, mean(gist,1));  % first center at 0
     X = normalize(double(X));  % then scale to unit length
+else
+    logInfo('will NOT pre-normalize data');
 end
 
 ind = randperm(size(X, 1));
-no_tst = 1000;
+no_tst = 2000;
 
 DS = [];
 DS.Xtest  = X(ind(1:no_tst),:);
 DS.Xtrain = X(ind(no_tst+1:end),:);
 DS.Ytrain = [];
 DS.Ytest  = [];
-DS.thr_dist = prctile(pdist(Xtrain(1:2000,:), 'Euclidean'), 5); 
+DS.thr_dist = prctile(pdist(DS.Xtrain(1:20000,:), 'Euclidean'), 5)
 
 logInfo('[LabelMe_GIST] loaded in %.2f secs', toc);
 end
