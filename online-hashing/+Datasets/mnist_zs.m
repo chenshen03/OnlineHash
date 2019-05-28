@@ -41,7 +41,7 @@ else
     logInfo('will NOT pre-normalize data');
 end
 
-% ����seen class��unseen class
+% split to seen class and unseen class
 num_class = 10;
 ratio = 0.25;
 classes = randperm(num_class);
@@ -49,12 +49,12 @@ unseen_num = round(ratio * num_class);
 unseen_class = classes(1:unseen_num)
 seen_class = classes(unseen_num+1:end)
 
-% ���ɰ���75%��seen class����
+% randomly select 75% seen class data
 ind_seen = logical(sum(Y==seen_class, 2));
 X_seen = X(ind_seen, :);
 Y_seen = Y(ind_seen);
 
-% ���ɰ���25%��unseen class����
+% randomly select 25% unseen class data
 ind_unseen = logical(sum(Y==unseen_class, 2));
 X_unseen = X(ind_unseen, :);
 Y_unseen = Y(ind_unseen);
