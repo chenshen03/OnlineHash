@@ -107,7 +107,9 @@ elseif ~isempty(strfind(opts.metric, 'prec_n'))
     logInfo('Prec@(radius=%d) = %g', N, res);
 
 elseif ~isempty(strfind(opts.metric, 'prec_recall'))
-    Dhamm = hammingDist(Htest, Htrain);
+    R = opts.nbits;
+    sim = compare_hash_tables(Htrain, Htest);
+    Dhamm = (R - sim') / 2;
     [recall, precision, ~] = recall_precision(Aff', Dhamm);
     res.recall = recall;
     res.precision = precision;
