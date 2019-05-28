@@ -106,6 +106,12 @@ elseif ~isempty(strfind(opts.metric, 'prec_n'))
     res = mean(prec_n);
     logInfo('Prec@(radius=%d) = %g', N, res);
 
+elseif ~isempty(strfind(opts.metric, 'prec_recall'))
+    Dhamm = hammingDist(Htest, Htrain);
+    [recall, precision, ~] = recall_precision(Aff', Dhamm);
+    res.recall = recall;
+    res.precision = precision;
+    logInfo('Precision with Recall');
 else
     error(['Evaluation metric ' opts.metric ' not implemented']);
 end
