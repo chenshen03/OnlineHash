@@ -28,13 +28,28 @@ recall = zeros(max_hamm,1);
 rate = zeros(max_hamm,1);
 
 for n = 1:length(precision)
-    j = (Dhat<=((n-1)+0.00001));
+    retrieved_good_pairs = 0;
+    retrieved_pairs = 0;
     
-    %exp. # of good pairs that have exactly the same code
-    retrieved_good_pairs = sum(Wtrue(j));
-    
-    % exp. # of total pairs that have exactly the same code
-    retrieved_pairs = sum(j(:));
+    if Ntrain < 100e3
+        j = (Dhat<=((n-1)+0.00001));
+        % exp. # of good pairs that have exactly the same code
+        retrieved_good_pairs = sum(Wtrue(j));
+        % exp. # of total pairs that have exactly the same code
+        retrieved_pairs = sum(j(:));
+    else
+        % for large scale data: process in chunks
+        chunkSize = ceil(Ntest/10);
+        for i = 1:ceil(Ntest/chunkSize)
+            I = (i-1)*chunkSize+1 : min(i*chunkSize, Ntest);
+            j = (Dhat(I, :)<=((n-1)+0.00001));
+            % exp. # of good pairs that have exactly the same code
+            tmp = Wtrue(I, :);
+            retrieved_good_pairs = retrieved_good_pairs + sum(tmp(j));
+            % exp. # of total pairs that have exactly the same code
+            retrieved_pairs = retrieved_pairs + sum(j(:));
+        end
+    end
 
     precision(n) = retrieved_good_pairs/(retrieved_pairs+eps);
     recall(n)= retrieved_good_pairs/total_good_pairs;
