@@ -103,7 +103,9 @@ for i = 1:length(model.test_iters)
         
         opts.metric = 'prec_recall';
         res = evaluate(Htrain, Htest, opts, Aff);
-        plot_recall_prec(res.recall, res.precision, opts);
+        if size(res.recall, 1) > 0
+            plot_recall_prec(res.recall, res.precision, opts);
+        end
         info.recall = res.recall;
         info.precision = res.precision;
     end
