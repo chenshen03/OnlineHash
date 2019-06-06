@@ -110,6 +110,7 @@ elseif ~isempty(strfind(opts.metric, 'prec_recall'))
     R = opts.nbits;
     sim = compare_hash_tables(Htrain, Htest);
     Dhamm = (R - sim') / 2;
+    clear sim;
     [recall, precision, ~] = recall_precision(Aff', Dhamm);
     res.recall = recall;
     res.precision = precision;
