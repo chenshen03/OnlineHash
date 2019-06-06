@@ -38,6 +38,7 @@ for n = 1:length(precision)
         % exp. # of total pairs that have exactly the same code
         retrieved_pairs = sum(j(:));
     else
+        logInfo('n = %d', n);
         % for large scale data: process in chunks
         chunkSize = ceil(Ntest/10);
         for i = 1:ceil(Ntest/chunkSize)

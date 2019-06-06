@@ -49,4 +49,18 @@ demo_online('MIHash','places',64,'ntrials',1,'ntest',2,'numTrain',100000,'update
 demo_online('HCOH','places',64,'ntrials',1,'ntest',2,'numTrain', 100000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
 
 demo_online('SDOH','places',64,'ntrials',1,'ntest',2,'numTrain', 100000,'updateInterval',2000,'trigger','fix','reservoirSize',200,'override',1)
+
+% NUS-WIDE
+demo_online('OKH','nuswide',64,'ntrials',1,'ntest',2,'numTrain',40000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+
+demo_online('SketchHash','nuswide',64,'ntrials',1,'ntest',2,'numTrain',40000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+
+demo_online('AdaptHash','nuswide',64,'ntrials',1,'ntest',2,'numTrain', 40000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+
+demo_online('OSH','nuswide',64,'ntrials',1,'ntest',2,'numTrain', 40000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+
+demo_online('MIHash','nuswide',64,'ntrials',1,'ntest',2,'numTrain',40000,'updateInterval',100,'trigger','mi','reservoirSize',2000,'override',1)
+
+demo_online('HCOH','nuswide',64,'ntrials',1,'ntest',2,'numTrain', 40000,'updateInterval',100,'trigger','fix','reservoirSize',200,'override',1)
+
 % LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 matlab
